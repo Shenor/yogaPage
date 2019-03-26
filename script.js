@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', function () {
         });
 
         //Вызов функции модального окна для каждой функции
-        
+
         descriptBtn.forEach(function(item){
             item.addEventListener('click', function(){
                 overlay.style.display = 'block';
@@ -106,5 +106,27 @@ window.addEventListener('DOMContentLoaded', function () {
                 document.body.style.overflow = 'hidden';
             });
         });
-       
+
+        //добавление нового дива через классы
+        let mainBlock = document.querySelector('.main-block');
+        class Options{
+                constructor(height, width, bg, fontSize, color){
+                    this.height = height;
+                    this.width = width;
+                    this.bg = bg;
+                    this.fontSize = fontSize;
+                    this.color = color;
+                    this.textAlign = 'center';
+                }
+                createDiv(){
+                    let elem = document.createElement('div'),
+                        param = `height:${this.height}px;width:${this.width}px;background-color:${this.bg};font-size:${this.fontSize};text-align:${this.textAlign};color:${this.color};`;
+                     
+                        mainBlock.appendChild(elem);
+                        elem.style.cssText = param;
+
+                }
+        }
+        let item = new Options(300, 350, "red", 14, "black"); 
+        item.createDiv();
 });
