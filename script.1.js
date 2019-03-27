@@ -107,61 +107,26 @@ window.addEventListener('DOMContentLoaded', function () {
             });
         });
 
+        //добавление нового дива через классы
+        let mainBlock = document.querySelector('.main-block');
+        class Options{
+                constructor(height, width, bg, fontSize, color){
+                    this.height = height;
+                    this.width = width;
+                    this.bg = bg;
+                    this.fontSize = fontSize;
+                    this.color = color;
+                    this.textAlign = 'center';
+                }
+                createDiv(){
+                    let elem = document.createElement('div'),
+                        param = `height:${this.height}px;width:${this.width}px;background-color:${this.bg};font-size:${this.fontSize};text-align:${this.textAlign};color:${this.color};`;
+                     
+                        mainBlock.appendChild(elem);
+                        elem.style.cssText = param;
 
-        //
-        let message = {
-            loading: 'Загрузка...',
-            success: "Спасибо за заявку!",
-            failure: "Что-то пошло не так"
-        };
-
-        let form = document.querySelector('.main-form'),
-        input = form.getElementsByTagName('input'),
-        statusMessage = document.createElement('div');
-
-        statusMessage.classList.add('status');
-
-        form.addEventListener('submit', function(event){
-            event.preventDefault();
-            form.appendChild(statusMessage);
-
-            let request = new XMLHttpRequest();
-
-             request.open('POST', 'server.php');   
-             
-             //При отправке данных стандартным форматом, удобен для PHP
-             //request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-             //При отправке данных с помощью JSON формата
-             request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-             
-             let formData = new FormData(form);
-             
-             //Преобразование FormData в JSON
-             let obj = {};
-             formData.forEach(function(value, key){
-                obj[key] = value;
-             });
-
-             //Перевод обьекта в JSON
-             let json = JSON.stringify(obj);
-
-             //Замена тела запроса на JSON
-             //request.send(formData);
-
-             request.send(obj);   
-             
-             //Обработка событий ответа сервера
-             request.addEventListener('readystatechange', function(){
-                 if(request.readyState < 4 ){
-                    statusMessage.innerHTML = message.loading;
-                 }else if (request.readyState = 4 && request.status == 200){
-                    statusMessage.innerHTML = message.success;
-                 }else{
-                    statusMessage.innerHTML = message.failure; 
-                 }
-             });
-        });
-
-
+                }
+        }
+        let item = new Options(300, 350, "red", 14, "black"); 
+        item.createDiv();
 });
